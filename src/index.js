@@ -66,6 +66,7 @@ class Zoom extends Component {
     const {
       height,
       img,
+      innerStyles,
       transitionTime,
       zoomScale,
       width,
@@ -84,6 +85,7 @@ class Zoom extends Component {
       backgroundSize: 'auto 100%',
       transition: `transform ${transitionTime}s ease-out`,
       backgroundImage: `url('${img}')`,
+      ...innerStyles,
     }
 
     const transform = {
@@ -122,10 +124,13 @@ Zoom.propTypes = {
   width: PropTypes.number.isRequired,
   /** The time (in seconds) that will take to scale your image. */
   transitionTime: PropTypes.number,
+  /** Extra styles to pass to the inner element. */
+  innerStyles: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 }
 
 Zoom.defaultProps = {
   transitionTime: 0.1,
+  innerStyles: {},
 }
 
 export default Zoom
