@@ -34,6 +34,10 @@ class Zoom extends Component {
 
   handleMouseMovement (e) {
     const {
+      left: bodyLeft,
+      top: bodyTop,
+    } = document.body.getBoundingClientRect()
+    const {
       left: offsetLeft,
       top: offsetTop,
     } = this.imageRef.current.getBoundingClientRect()
@@ -47,8 +51,8 @@ class Zoom extends Component {
       },
     } = this.imageRef
 
-    const x = ((e.pageX - offsetLeft) / parseInt(width, 10)) * 100
-    const y = ((e.pageY - offsetTop) / parseInt(height, 10)) * 100
+    const x = ((e.pageX - offsetLeft + bodyLeft) / parseInt(width, 10)) * 100
+    const y = ((e.pageY - offsetTop + bodyTop) / parseInt(height, 10)) * 100
 
     this.setState({
       mouseX: x,
