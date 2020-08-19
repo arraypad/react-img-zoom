@@ -68,6 +68,7 @@ class Zoom extends Component {
     } = this.state
 
     const {
+      disabled,
       height,
       img,
       innerStyles,
@@ -96,13 +97,17 @@ class Zoom extends Component {
       transformOrigin: `${mouseX}% ${mouseY}%`,
     }
 
+    const interactivityProps = disabled ? {} : {
+      onMouseOver: this.handleMouseOver,
+      onMouseOut: this.handleMouseOut,
+      onMouseMove: this.handleMouseMovement,
+    }
+
     return (
       <div
         style={this.outerDivStyle}
-        onMouseOver={this.handleMouseOver}
-        onMouseOut={this.handleMouseOut}
-        onMouseMove={this.handleMouseMovement}
         ref={this.imageRef}
+        {...interactivityProps}
       >
         <div
           style={{
@@ -130,11 +135,14 @@ Zoom.propTypes = {
   transitionTime: PropTypes.number,
   /** Extra styles to pass to the inner element. */
   innerStyles: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  /** Whether zoom interactivity is disabled. */
+  disabled: PropTypes.bool,
 }
 
 Zoom.defaultProps = {
   transitionTime: 0.1,
   innerStyles: {},
+  disabled: false,
 }
 
 export default Zoom
